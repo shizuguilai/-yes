@@ -12,11 +12,12 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 #transform picture to appropriate form
 batch_size = 200
 category = 16
+folder = './split_picture'
 transfrom = torchvision.transforms.Compose([torchvision.transforms.ToTensor(), torchvision.transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
-train_dataset = torchvision.datasets.ImageFolder('./split_picture/train', transform=transfrom)
+train_dataset = torchvision.datasets.ImageFolder((folder + '/train'), transform=transfrom)
 train_loader = torch.utils.data.DataLoader(dataset = train_dataset, batch_size = batch_size, shuffle = True)
 
-test_dataset = torchvision.datasets.ImageFolder('./split_picture/test', transform=transfrom)
+test_dataset = torchvision.datasets.ImageFolder((folder +'/test'), transform=transfrom)
 test_loader = torch.utils.data.DataLoader(dataset = test_dataset, batch_size = batch_size, shuffle = True)
 
 """
@@ -61,7 +62,7 @@ optimizer = torch.optim.Adam(model.parameters())
 print(model)
 
 #study
-num_epochs = 20
+num_epochs = 40
 for epoch in range(num_epochs):
     total = 0
     correct = 0
@@ -108,7 +109,7 @@ print('accuracy: ',accuracy)
 print('whether to  save or not? y/Y')
 judge = 'y'
 if judge == 'y' or judge == 'Y' :
-    torch.save(model, 'model_100.pth')
+    torch.save(model, 'model_40.pth')
 
 
 
